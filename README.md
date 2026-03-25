@@ -1,6 +1,6 @@
-# (_TODO: fill in the title of this assignment here!_)
+# TreesLab
 
-Authors: (_TODO: fill in your names here!_)
+Authors: Emory Chien, Ella Tobben
 
 ## Build commands
 
