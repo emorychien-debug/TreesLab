@@ -1,5 +1,6 @@
 package edu.ttap.trees;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,8 +91,24 @@ public class Tree<T> {
      * @param value the value to search for
      * @return true iff the tree contains <code>value</code>
      */
+    // For each node: 
+    // > If node is empty, return false
+    // > If node is not empty:
+    //   > If node's value is desired value, return true
+    //   > Otherwise run again on lower branches
+
     public boolean contains(T value) {
-        throw new UnsupportedOperationException();
+        return containsH(value, root);
+
+    }
+    private boolean containsH(T value, Node<T> tree){
+        if(tree == null){
+            return false;
+        }
+        if(root.value.equals(value)){
+            return true;
+        }
+        return containsH(value, tree.left) || containsH(value, tree.right);
     }
 
     ///// Part 2: Traversals
@@ -99,8 +116,22 @@ public class Tree<T> {
     /**
      * @return the elements of this tree collected via an in-order traversal
      */
+    // Make a list of Ts.
+    // > Tree is null : 
+    // > Tree is not null, process the left subtree, add the value, process the right subtree
     public List<T> toListInorder() {
-        throw new UnsupportedOperationException();
+        List<T> list = new ArrayList<>();
+        ListInOrderH(list, root);
+        return list;
+    }
+
+    private void ListInOrderH(List<T> elements, Node<T> cur) {
+        if(cur == null){
+            return;
+        }
+        ListInOrderH(elements, cur.left);
+        elements.add(cur.value);
+        ListInOrderH(elements, cur.right);
     }
 
     /**
