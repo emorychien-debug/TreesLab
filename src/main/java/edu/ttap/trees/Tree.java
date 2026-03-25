@@ -117,8 +117,8 @@ public class Tree<T> {
      * @return the elements of this tree collected via an in-order traversal
      */
     // Make a list of Ts.
-    // > Tree is null : 
-    // > Tree is not null, process the left subtree, add the value, process the right subtree
+    // > Tree is null : do nothing
+    // > Tree is not null: process the left subtree, add the value, process the right subtree
     public List<T> toListInorder() {
         List<T> list = new ArrayList<>();
         ListInOrderH(list, root);
@@ -137,15 +137,38 @@ public class Tree<T> {
     /**
      * @return the elements of this tree collected via a pre-order traversal
      */
+    // Make a list of Ts.
+    // > Tree is null : do nothing
+    // > Tree is not null: add the value, process the left subtree, process the right subtree
     public List<T> toListPreorder() {
         throw new UnsupportedOperationException();
+    }
+
+    private void toListPreorderH(List<T> elements, Node<T> cur) {
+        if(cur == null){
+            return;
+        }
+        elements.add(cur.value);
+        ListInOrderH(elements, cur.left);
+        ListInOrderH(elements, cur.right);
     }
 
     /**
      * @return the elements of this tree collected via a post-order traversal
      */
+    // Make a list of Ts.
+    // > Tree is null : do nothing
+    // > Tree is not null:  process the left subtree, process the right subtree, add the value
     public List<T> toListPostorder() {
         throw new UnsupportedOperationException();
+    }
+    private void toListPostorderH(List<T> elements, Node<T> cur) {
+        if(cur == null){
+            return;
+        }
+        ListInOrderH(elements, cur.left);
+        ListInOrderH(elements, cur.right);
+        elements.add(cur.value);
     }
 
     ///// Part 3: Stringifying Trees
