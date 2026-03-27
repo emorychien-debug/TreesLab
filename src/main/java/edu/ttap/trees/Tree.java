@@ -141,7 +141,9 @@ public class Tree<T> {
     // > Tree is null : do nothing
     // > Tree is not null: add the value, process the left subtree, process the right subtree
     public List<T> toListPreorder() {
-        throw new UnsupportedOperationException();
+        List<T> list = new ArrayList<>();
+        toListPreorderH(list, root);
+        return list;
     }
 
     private void toListPreorderH(List<T> elements, Node<T> cur) {
@@ -161,7 +163,7 @@ public class Tree<T> {
     // > Tree is not null:  process the left subtree, process the right subtree, add the value
     public List<T> toListPostorder() {
         List<T> list = new ArrayList<>();
-        toListPostOrderH(list, root);
+        toListPostorderH(list, root);
         return list;
     }
     private void toListPostorderH(List<T> elements, Node<T> cur) {
