@@ -1,5 +1,6 @@
 package edu.ttap.bsts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +72,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param v the value to insert
      */
     public void insert(T v) {
-        throw new UnsupportedOperationException();
+        root = insertH(root, v);
+    }
+    private Node<T> insertH (Node<T> tree, T val){
+        if (tree == null) {
+            return new Node<T>(val);
+        } else {
+            if(val.compareTo(tree.value) < 0){
+                return new Node<>(tree.value, insertH(tree.left, val), tree.right);
+            } else {
+                return new Node<>(tree.value, tree.left, insertH(tree.right, val));
+            }
+        }
     }
 
     ///// Part 2: Contains
@@ -80,8 +92,23 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param v the value to find
      * @return true iff this tree contains <code>v</code>
      */
+    // if tree is empty, returns false;
+    // otherwise, if val we are looking for matches, return true;
+    // if desired val is less recurse left; more recurse right
     public boolean contains(T v) {
-        throw new UnsupportedOperationException();
+        return containsH(v, root);
+    }
+    private boolean containsH(T v, Node<T> tree){
+        if(tree == null){
+            return false;
+        }
+        if(tree.value.compareTo(v) == 0){
+            return true;
+        }
+        if(tree.value.compareTo(v) < 0){
+            return containsH(v, tree.left);
+        }
+        return containsH(v, tree.right);
     }
 
     ///// Part 3: Ordered Traversals
@@ -98,7 +125,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return a list contains the elements of this BST in-order.
      */
     public List<T> toList() {
-        throw new UnsupportedOperationException();
+        List<T> list = new ArrayList<>();
+        toListH(list, root);
+        return list;
+    }
+
+    private void toListH(List<T> elements, Node<T> cur) {
+        if(cur == null){
+            return;
+        }
+        toListH(elements, cur.left);
+        elements.add(cur.value);
+        toListH(elements, cur.right);
     }
 
     ///// Part 4: BST Sorting

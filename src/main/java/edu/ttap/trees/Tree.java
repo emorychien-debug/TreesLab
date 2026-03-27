@@ -160,7 +160,9 @@ public class Tree<T> {
     // > Tree is null : do nothing
     // > Tree is not null:  process the left subtree, process the right subtree, add the value
     public List<T> toListPostorder() {
-        throw new UnsupportedOperationException();
+        List<T> list = new ArrayList<>();
+        toListPostOrderH(list, root);
+        return list;
     }
     private void toListPostorderH(List<T> elements, Node<T> cur) {
         if(cur == null){
@@ -177,9 +179,12 @@ public class Tree<T> {
      * @return a string represent of this tree in the form, "[x1, ..., xk]."
      * The order of the elements is left unspecified.
      */
+    // Make a string representing contents of the tree in order.
+    // > Tree is null : do nothing
+    // > Tree is not null: process the left subtree, add the value, process the right subtree
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        
     }
 
     ///// Extra: Pretty Printing

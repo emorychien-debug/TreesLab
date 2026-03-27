@@ -11,8 +11,11 @@ public class BinarySearchTreeTest {
 
     private BinarySearchTree<Integer> mkSampleTree() {
         BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
-        // TODO: make a sample tree consisting of 3, 5, 2, 6, and 4
-        //       through repeated calls to insert.
+        tree.insert(3);
+        tree.insert(5);
+        tree.insert(2);
+        tree.insert(6);
+        tree.insert(4);
         return tree;
     }
 
