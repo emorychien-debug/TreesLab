@@ -98,17 +98,17 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     public boolean contains(T v) {
         return containsH(v, root);
     }
-    private boolean containsH(T v, Node<T> tree){
-        if(tree == null){
+    private boolean containsH(T v, Node<T> tree) {
+        if(tree == null) {
             return false;
         }
-        if(tree.value.compareTo(v) == 0){
+        if(tree.value.compareTo(v) == 0) {
             return true;
         }
-        if(tree.value.compareTo(v) < 0){
-            return containsH(v, tree.left);
+        if(tree.value.compareTo(v) < 0) {
+            return containsH(v, tree.right);
         }
-        return containsH(v, tree.right);
+        return containsH(v, tree.left);
     }
 
     ///// Part 3: Ordered Traversals
@@ -118,7 +118,25 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        String stringified = new String();
+        stringified = stringified + "[";
+        if (root != null) {
+            stringified += toStringH(root.left, true);
+            stringified = stringified + root.value;
+            stringified += toStringH(root.right, false);
+        }
+        stringified += "]";
+        return stringified;
+    }
+
+    private String toStringH(Node<T> node, boolean left){
+        if (node != null) {
+            if (left){
+                return toStringH(node.left, left) + node.value +", " + toStringH(node.right, left);
+            }
+            return toStringH(node.left, left) + ", " + node.value + toStringH(node.right, left);
+        }
+        return "";
     }
 
     /**
@@ -131,7 +149,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     private void toListH(List<T> elements, Node<T> cur) {
-        if(cur == null){
+        if(cur == null) {
             return;
         }
         toListH(elements, cur.left);
@@ -148,16 +166,23 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @implSpec <code>sort</code> runs in ___ time if the tree remains balanced. 
      */
     public static <T extends Comparable<? super T>> List<T> sort(List<T> lst) {
-        throw new UnsupportedOperationException();
+        if(lst == null) {
+            return lst;
+        }
+        BinarySearchTree<T> bst = new BinarySearchTree<T>();
+        for (T i : lst) {
+            bst.insert(i);
+        }
+        return (bst.toList());
     }
 
     ///// Part 5: Deletion
   
     /*
      * The three cases of deletion are:
-     * 1. (TODO: fill me in!)
-     * 2. (TODO: fill me in!)
-     * 3. (TOOD: fill me in!)
+     * 1. The node has no children
+     * 2. The node has one child
+     * 3. The node has two children
      */
 
     /**
@@ -167,6 +192,38 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param value the value to delete
      */
     public void delete(T value) {
-        throw new UnsupportedOperationException();
+        root = deleteH(value, root);
+    }
+    private Node<T> deleteH(T value, Node<T> node) {
+        if(node.value.compareTo(value) == 0) {
+            return deleteNode(node); // check num of children & act accordingly. return updated node.
+        } else if(node.value.compareTo(value) < 0) {
+            return new Node<T>(node.value, node.left, deleteH(value, node.right));
+        } else {
+            return new Node<T>(node.value, deleteH(value, node.left), node.right);
+        }
+    }
+    private Node<T> deleteNode(Node<T> node) {
+        if (node.right == null && node.left == null){ // has no children
+            return null;
+        } else if (node.left != null && node.right == null) { // has only left child
+            return node.left;
+        } else if(node.right != null && node.left == null) { // has only right child
+            return node.right;
+        } else { // has 2 children
+            Node<T> cur = node.right; 
+            Node<T> parent = node;
+            while(cur.left != null) { //find smallest value from right of tree below value to be deleted
+                parent = cur;
+                cur = cur.left;
+            }
+            node.value = cur.value;
+            if(parent == node) { 
+                parent.right = null;
+            } else {
+                parent.left = null;
+            }
+            return node;
+        }
     }
 }

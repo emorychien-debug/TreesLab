@@ -101,11 +101,11 @@ public class Tree<T> {
         return containsH(value, root);
 
     }
-    private boolean containsH(T value, Node<T> tree){
-        if(tree == null){
+    private boolean containsH(T value, Node<T> tree) {
+        if(tree == null) {
             return false;
         }
-        if(tree.value.equals(value)){
+        if(tree.value.equals(value)) {
             return true;
         }
         return containsH(value, tree.left) || containsH(value, tree.right);
@@ -126,7 +126,7 @@ public class Tree<T> {
     }
 
     private void ListInOrderH(List<T> elements, Node<T> cur) {
-        if(cur == null){
+        if(cur == null) {
             return;
         }
         ListInOrderH(elements, cur.left);
@@ -147,7 +147,7 @@ public class Tree<T> {
     }
 
     private void toListPreorderH(List<T> elements, Node<T> cur) {
-        if(cur == null){
+        if(cur == null) {
             return;
         }
         elements.add(cur.value);
@@ -167,7 +167,7 @@ public class Tree<T> {
         return list;
     }
     private void toListPostorderH(List<T> elements, Node<T> cur) {
-        if(cur == null){
+        if(cur == null) {
             return;
         }
         ListInOrderH(elements, cur.left);
@@ -188,7 +188,7 @@ public class Tree<T> {
     public String toString() {
         String stringified = new String();
         stringified = stringified + "[";
-        if (root != null){
+        if (root != null) {
             stringified += toStringH(root.left, true);
             stringified = stringified + root.value;
             stringified += toStringH(root.right, false);
@@ -196,9 +196,9 @@ public class Tree<T> {
         stringified += "]";
         return stringified;
     }
-    private String toStringH(Node<T> node, boolean left){
-        if (node != null){
-            if (left){
+    private String toStringH(Node<T> node, boolean left) {
+        if (node != null) {
+            if (left) {
                 return toStringH(node.left, left) + node.value +", " + toStringH(node.right, left);
             }
             return toStringH(node.left, left) + ", " + node.value + toStringH(node.right, left);
