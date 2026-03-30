@@ -105,7 +105,7 @@ public class Tree<T> {
         if(tree == null){
             return false;
         }
-        if(root.value.equals(value)){
+        if(tree.value.equals(value)){
             return true;
         }
         return containsH(value, tree.left) || containsH(value, tree.right);
@@ -186,7 +186,24 @@ public class Tree<T> {
     // > Tree is not null: process the left subtree, add the value, process the right subtree
     @Override
     public String toString() {
-        
+        String stringified = new String();
+        stringified = stringified + "[";
+        if (root != null){
+            stringified += toStringH(root.left, true);
+            stringified = stringified + root.value;
+            stringified += toStringH(root.right, false);
+        }
+        stringified += "]";
+        return stringified;
+    }
+    private String toStringH(Node<T> node, boolean left){
+        if (node != null){
+            if (left){
+                return toStringH(node.left, left) + node.value +", " + toStringH(node.right, left);
+            }
+            return toStringH(node.left, left) + ", " + node.value + toStringH(node.right, left);
+        }
+        return "";
     }
 
     ///// Extra: Pretty Printing
