@@ -24,9 +24,21 @@ public class Grin {
      * @param outfile the file to ouptut to
      */
     public static void decode(String infile, String outfile) throws IOException {
-        BitInputStream in = new BitInputStream(infile);
-        BitOutputStream out = new BitOutputStream(outfile);
-
+        BitInputStream in;
+        BitOutputStream out;
+        try {
+            in = new BitInputStream(infile);
+        } catch (IOException e) {
+            System.err.println("Invalid input file");
+            return;
+        }
+        try {
+            out = new BitOutputStream(outfile);
+        } catch (IOException e) {
+            System.err.println("Invalid output file");
+            return;
+        }
+        System.out.println("in & out files imported successfully");
         checkMagicNum(in);
         
         HuffmanTree tree = new HuffmanTree(in);

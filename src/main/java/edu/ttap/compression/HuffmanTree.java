@@ -69,10 +69,13 @@ public class HuffmanTree {
                     cur = cur.right;
                 }
             }
-            if(cur.val == 511) {
+            if(cur.val == 0x100) { //eof
+                System.out.println("found eof");
                 return;
             }
             out.writeBits(cur.val, 8);
         }
     }
 }
+// EOF = 1 0000 0000
+// 0x100
