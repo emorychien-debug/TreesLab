@@ -11,5 +11,5 @@ Authors: Emory Chien, Ella Tobben
 ## Resources
 
 *   w3schools for help with try and catch statements: (https://www.w3schools.com/java/java_try_catch.asp)
-*   ...
+*   asked PM for help hooking together the main function with grin.main
 *   ...
